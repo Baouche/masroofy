@@ -4,6 +4,7 @@ const WalletCards = () => {
   const totalIncome = 0; 
   const totalExpenses = 0; 
   const balance = totalIncome - totalExpenses;
+  
 
   return (
     <div className="wallet-cards">
