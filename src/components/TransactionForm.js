@@ -6,7 +6,7 @@ const TransactionForm = ({ onSubmit }) => {
     amount: "",
     date: "",
     category: "",
-    type: "income", // Default type
+    type: "income", 
     notes: "",
   });
 
