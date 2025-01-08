@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Home from './Pages/Home'; 
+import Home from './Pages/Home';
 import AddTransaction from './Pages/AddTransaction';
 import TransactionList from './Pages/TransactionList';
 import Reports from './Pages/Reports';
@@ -7,25 +7,33 @@ import Reports from './Pages/Reports';
 import "./App.css"; 
 
 const App = () => {
-  const [transactions, setTransactions] = useState([]);
-  const [currentPage, setCurrentPage] = useState("home");
+  const [transactions, setTransactions] = useState([]); 
+  const [currentPage, setCurrentPage] = useState("home"); 
 
+  
   const addTransaction = (transaction) => {
-    setTransactions([...transactions, transaction]);
+    
+    if (transaction.name && transaction.amount && transaction.date && transaction.category) {
+      setTransactions([...transactions, transaction]);
+    } else {
+      console.error("Incomplete transaction data");
+    }
   };
 
   const editTransaction = (index, updatedTransaction) => {
-    const updatedTransactions = transactions.map((t, i) =>
-      i === index ? updatedTransaction : t
-    );
-    setTransactions(updatedTransactions);
+    const updatedTransactions = [...transactions]; 
+    updatedTransactions[index] = updatedTransaction; 
+    setTransactions(updatedTransactions); 
   };
+  
 
+  
   const deleteTransaction = (index) => {
     const updatedTransactions = transactions.filter((_, i) => i !== index);
     setTransactions(updatedTransactions);
   };
 
+  
   const renderPage = () => {
     switch (currentPage) {
       case "home":
@@ -35,7 +43,7 @@ const App = () => {
       case "transactionList":
         return (
           <TransactionList
-            transactions={transactions}
+            transactions={transactions.filter((t) => t)} 
             onEdit={editTransaction}
             onDelete={deleteTransaction}
           />
@@ -50,7 +58,7 @@ const App = () => {
   return (
     <div className="app">
       <header>
-        <h1>Masroofy</h1>
+        <h1>👛Masroofy</h1>
         <nav>
           <button onClick={() => setCurrentPage("home")}>Home</button>
           <button onClick={() => setCurrentPage("addTransaction")}>
